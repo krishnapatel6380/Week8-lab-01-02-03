@@ -68,10 +68,60 @@ const deleteGoal = async (req, res) => {
   }
 };
 
+
+// Update Goal by ID
+const renderUpdateGoal = async (req, res) => {
+  try {
+    const { id } = req.params;
+     
+    // Fetch the goal by id
+    const goal = await Goal.findById(id);
+
+    if (!goal) {
+      return res.render("notfound");
+    }
+
+    // Render the singlegoal.ejs template with the goal data
+    res.render("updategoal", { goal });
+
+  } catch (error) {
+    console.error("Error fetching Goal:", error);
+    res.status(500).render("error");
+  }
+};
+
+// Handle POST request to update the goal
+const updateGoal = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const achieved = req.body.achieved === "on";
+    const { title, description, targetDate } = req.body;
+    const updatedGoalData = { title, description, targetDate, achieved };
+
+    // Update the goal with the new data
+    const updatedGoal = await Goal.findOneAndUpdate({ _id: id }, updatedGoalData, { new: true });
+
+    if (!updatedGoal) {
+      return res.render("notfound");
+    }
+
+    console.log("Goal updated successfully");
+
+    // Redirect to /
+    res.redirect("/");
+
+  } catch (error) {
+    console.error("Error updating Goal:", error);
+    res.status(500).render("error");
+  }
+};
+
 module.exports = {
   renderGoals,
   renderGoal,
   addGoal,
   renderForm,
   deleteGoal,
+  updateGoal,
+  renderUpdateGoal,
 };

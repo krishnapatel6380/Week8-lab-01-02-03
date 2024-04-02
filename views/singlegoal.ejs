@@ -11,7 +11,10 @@
   
       <!-- Update button -->
       <form
-        class="action-form">
+        class="action-form"
+        method="GET"
+        action="/single-goal/update/<%= goal._id %>"
+      >
         <button type="submit" class="update">update</button>
       </form>
   

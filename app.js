@@ -34,7 +34,10 @@ app.post("/addgoal", blogSSR.addGoal);
 app.get("/single-goal/:id", blogSSR.renderGoal);
 // Define a route to delete singlegoal
 app.delete("/single-goal/:id", blogSSR.deleteGoal);
-
+// Define a route to update single goal.ejs
+app.put("/single-goal/:id", blogSSR.updateGoal);
+// Define goal to update
+app.get("/single-goal/update/:id", blogSSR.renderUpdateGoal);
 
 // API
 // GET all Goals
