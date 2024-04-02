@@ -32,6 +32,9 @@ app.get("/addgoal", blogSSR.renderForm);
 app.post("/addgoal", blogSSR.addGoal);
 // Define a route to render the singlegoal.ejs view
 app.get("/single-goal/:id", blogSSR.renderGoal);
+// Define a route to delete singlegoal
+app.delete("/single-goal/:id", blogSSR.deleteGoal);
+
 
 // API
 // GET all Goals

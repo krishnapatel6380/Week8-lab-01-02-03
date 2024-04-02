@@ -10,7 +10,7 @@ const renderGoals = async (req, res) => {
     res.status(500).render("error");
   }
 };
- 
+
 // Get Goal by ID
 const renderGoal = async (req, res) => {
   try {
@@ -52,10 +52,26 @@ const addGoal = async (req, res) => {
   }
 };
 
+// Delete Goal by ID
+const deleteGoal = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const goal = await Goal.findByIdAndDelete({ _id: id });
+    if (!goal) {
+      return res.status(404).render("notfound");
+    }
+    console.log("Goal delted successfully");
+    res.redirect("/"); // Adjust the URL as needed
+  } catch (error) {
+    console.error("Error deleteing Goal:", error);
+    res.status(500).render("error");
+  }
+};
 
 module.exports = {
   renderGoals,
   renderGoal,
   addGoal,
   renderForm,
+  deleteGoal,
 };
